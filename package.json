@@ -1,0 +1,19 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "проект Игры разума",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orc-code/frontend-project-44.git"
+  },
+  "author": "Andrey Semenov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/orc-code/frontend-project-44/issues"
+  },
+  "homepage": "https://github.com/orc-code/frontend-project-44#readme"
+}
