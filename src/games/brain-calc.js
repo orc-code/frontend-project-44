@@ -1,7 +1,7 @@
 import game from '../index.js';
 import getRandomNumber from '../utility/getRandomNumber.js';
 
-const gameDescription = 'What is the result of the expression?';
+const GAME_DESCRIPTION = 'What is the result of the expression?';
 const operators = ['+', '-', '*'];
 
 const generateRoundData = () => {
@@ -41,6 +41,6 @@ const generateAnswer = ({ num1, num2, operator }) => {
   }
 };
 
-const brainCalc = () => game(gameDescription, generateRoundData);
+const brainCalc = () => game(GAME_DESCRIPTION, generateRoundData);
 
 export default brainCalc;
