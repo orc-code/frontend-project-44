@@ -20,7 +20,9 @@ const showWelcomeGameMessage = (gameDescription) => {
 };
 
 const startRound = (generateRoundData, roundCount) => {
-  const { question, correctAnswer } = generateRoundData();
+  const { getQuestion, getCorrectAnswer } = generateRoundData();
+  const question = getQuestion();
+  const correctAnswer = getCorrectAnswer(question);
 
   communication.showQuestion(question);
   const userAnswer = communication.getUserAnswer();
