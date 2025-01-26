@@ -9,8 +9,8 @@ const generateRoundData = () => {
   const correctAnswer = generateAnswer(question);
 
   return {
-    question,
-    correctAnswer,
+    question: normalizeQuestion(question),
+    correctAnswer: correctAnswer.toString(),
   };
 };
 
@@ -19,10 +19,16 @@ const generateQuestion = () => {
   const num2 = getRandomNumber(1, 100);
   const operator = operators[getRandomNumber(0, 2)];
 
-  return `${num1} ${operator} ${num2}`;
+  return {
+    num1,
+    num2,
+    operator,
+  };
 };
 
-const generateAnswer = (num1, num2, operator) => {
+const normalizeQuestion = ({ num1, operator, num2 }) => `${num1} ${operator} ${num2}`;
+
+const generateAnswer = ({ num1, num2, operator }) => {
   switch (operator) {
     case '+':
       return num1 + num2;
