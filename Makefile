@@ -9,4 +9,7 @@ publish:
 
 lint:
 	npx eslint .
+
+addGames:
+	npm link
 				
