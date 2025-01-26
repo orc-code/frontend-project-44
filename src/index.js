@@ -8,22 +8,6 @@ let isWin = false;
 
 const isCorrectAnswer = (userAnswer, correctAnswer) => userAnswer === correctAnswer;
 
-function processCorrectAnswer(generateRoundData, roundCount) {
-  communication.showCorrectAnswer();
-
-  if (roundCount < MAX_ROUND_COUNT) {
-    startRound(generateRoundData, roundCount + 1);
-  }
-
-  if (roundCount === MAX_ROUND_COUNT) {
-    isWin = true;
-  }
-}
-
-function processWrongAnswer(answer, correctAnswer) {
-  communication.showWrongAnswer(answer, correctAnswer);
-}
-
 function showWelcomeGameMessage(gameDescription) {
   communication.showMessage(`Welcome to ${GAME_TITLE}!`);
   userName = communication.getUserName();
@@ -37,11 +21,20 @@ function startRound(generateRoundData, roundCount) {
   communication.showQuestion(question);
   const userAnswer = communication.getUserAnswer();
 
-  if (isCorrectAnswer(userAnswer, correctAnswer)) {
-    return processCorrectAnswer(generateRoundData, roundCount);
+  if (!isCorrectAnswer(userAnswer, correctAnswer)) {
+    communication.showWrongAnswer(userAnswer, correctAnswer);
+    return;
   }
 
-  return processWrongAnswer(userAnswer, correctAnswer);
+  communication.showCorrectAnswer();
+
+  if (roundCount < MAX_ROUND_COUNT) {
+    startRound(generateRoundData, roundCount + 1);
+  }
+
+  if (roundCount === MAX_ROUND_COUNT) {
+    isWin = true;
+  }
 }
 
 function showResultGame() {
