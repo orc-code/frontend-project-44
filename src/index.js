@@ -8,7 +8,7 @@ let isWin = false;
 
 const isCorrectAnswer = (userAnswer, correctAnswer) => userAnswer === correctAnswer;
 
-const processCorrectAnswer = (generateRoundData, roundCount) => {
+function processCorrectAnswer(generateRoundData, roundCount) {
   communication.showCorrectAnswer();
 
   if (roundCount < MAX_ROUND_COUNT) {
@@ -18,20 +18,20 @@ const processCorrectAnswer = (generateRoundData, roundCount) => {
   if (roundCount === MAX_ROUND_COUNT) {
     isWin = true;
   }
-};
+}
 
-const processWrongAnswer = (answer, correctAnswer) => {
+function processWrongAnswer(answer, correctAnswer) {
   communication.showWrongAnswer(answer, correctAnswer);
-};
+}
 
-const showWelcomeGameMessage = (gameDescription) => {
+function showWelcomeGameMessage(gameDescription) {
   communication.showMessage(`Welcome to ${GAME_TITLE}!`);
   userName = communication.getUserName();
   communication.showHello(userName);
   communication.showMessage(gameDescription);
-};
+}
 
-const startRound = (generateRoundData, roundCount) => {
+function startRound(generateRoundData, roundCount) {
   const { question, correctAnswer } = generateRoundData();
 
   communication.showQuestion(question);
@@ -39,18 +39,18 @@ const startRound = (generateRoundData, roundCount) => {
 
   if (isCorrectAnswer(userAnswer, correctAnswer)) {
     return processCorrectAnswer(generateRoundData, roundCount);
-  } else {
-    return processWrongAnswer(userAnswer, correctAnswer);
   }
-};
 
-const showResultGame = () => {
+  return processWrongAnswer(userAnswer, correctAnswer);
+}
+
+function showResultGame() {
   if (isWin) {
     communication.showCongratulations(userName);
   } else {
     communication.showTryAgain(userName);
   }
-};
+}
 
 /**
  * Starts the game by displaying a welcome message, initiating game rounds,
