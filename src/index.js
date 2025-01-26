@@ -33,7 +33,9 @@ const processCorrectAnswer = (generateRoundData, roundCount) => {
     startRound(generateRoundData, roundCount + 1);
   }
 
-  isWin = true;
+  if (roundCount === MAX_ROUND_COUNT) {
+    isWin = true;
+  }
 };
 
 const processWrongAnswer = (answer, correctAnswer) => {
