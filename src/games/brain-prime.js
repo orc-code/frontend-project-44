@@ -3,19 +3,7 @@ import getRandomNumber from '../utility/getRandomNumber.js';
 
 const GAME_DESCRIPTIONS = 'Answer "yes" if given number is prime. Otherwise answer "no".';
 
-const generateRoundData = () => {
-  const question = generateQuestion();
-  const correctAnswer = generateAnswer(question);
-
-  return {
-    question,
-    correctAnswer,
-  };
-};
-
 const generateQuestion = () => getRandomNumber(1, 100);
-
-const generateAnswer = (question) => (isPrime(question) ? 'yes' : 'no');
 
 const isPrime = (num) => {
   if (num === 2 || num === 3) {
@@ -30,6 +18,18 @@ const isPrime = (num) => {
   }
 
   return true;
+};
+
+const generateAnswer = (question) => (isPrime(question) ? 'yes' : 'no');
+
+const generateRoundData = () => {
+  const question = generateQuestion();
+  const correctAnswer = generateAnswer(question);
+
+  return {
+    question,
+    correctAnswer,
+  };
 };
 
 const brainPrime = () => game(GAME_DESCRIPTIONS, generateRoundData);

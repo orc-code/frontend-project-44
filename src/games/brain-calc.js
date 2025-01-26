@@ -4,16 +4,6 @@ import getRandomNumber from '../utility/getRandomNumber.js';
 const GAME_DESCRIPTION = 'What is the result of the expression?';
 const operators = ['+', '-', '*'];
 
-const generateRoundData = () => {
-  const question = generateQuestion();
-  const correctAnswer = generateAnswer(question);
-
-  return {
-    question: normalizeQuestion(question),
-    correctAnswer: correctAnswer.toString(),
-  };
-};
-
 const generateQuestion = () => {
   const num1 = getRandomNumber(1, 100);
   const num2 = getRandomNumber(1, 100);
@@ -39,6 +29,16 @@ const generateAnswer = ({ num1, num2, operator }) => {
     default:
       throw new Error('Unknown operator');
   }
+};
+
+const generateRoundData = () => {
+  const question = generateQuestion();
+  const correctAnswer = generateAnswer(question);
+
+  return {
+    question: normalizeQuestion(question),
+    correctAnswer: correctAnswer.toString(),
+  };
 };
 
 const brainCalc = () => game(GAME_DESCRIPTION, generateRoundData);

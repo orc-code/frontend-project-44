@@ -6,24 +6,6 @@ const GAME_TITLE = 'the Brain Games';
 let userName;
 let isWin = false;
 
-const showWelcomeGameMessage = (gameDescription) => {
-  communication.showMessage(`Welcome to ${GAME_TITLE}!`);
-  userName = communication.getUserName();
-  communication.showHello(userName);
-  communication.showMessage(gameDescription);
-};
-
-const startRound = (generateRoundData, roundCount) => {
-  const { question, correctAnswer } = generateRoundData();
-
-  communication.showQuestion(question);
-  const userAnswer = communication.getUserAnswer();
-
-  isCorrectAnswer(userAnswer, correctAnswer)
-    ? processCorrectAnswer(generateRoundData, roundCount)
-    : processWrongAnswer(userAnswer, correctAnswer);
-};
-
 const isCorrectAnswer = (userAnswer, correctAnswer) => userAnswer === correctAnswer;
 
 const processCorrectAnswer = (generateRoundData, roundCount) => {
@@ -42,8 +24,32 @@ const processWrongAnswer = (answer, correctAnswer) => {
   communication.showWrongAnswer(answer, correctAnswer);
 };
 
-const showResultGame = (userName) => {
-  isWin ? communication.showCongratulations(userName) : communication.showTryAgain(userName);
+const showWelcomeGameMessage = (gameDescription) => {
+  communication.showMessage(`Welcome to ${GAME_TITLE}!`);
+  userName = communication.getUserName();
+  communication.showHello(userName);
+  communication.showMessage(gameDescription);
+};
+
+const startRound = (generateRoundData, roundCount) => {
+  const { question, correctAnswer } = generateRoundData();
+
+  communication.showQuestion(question);
+  const userAnswer = communication.getUserAnswer();
+
+  if (isCorrectAnswer(userAnswer, correctAnswer)) {
+    return processCorrectAnswer(generateRoundData, roundCount);
+  } else {
+    return processWrongAnswer(userAnswer, correctAnswer);
+  }
+};
+
+const showResultGame = () => {
+  if (isWin) {
+    communication.showCongratulations(userName);
+  } else {
+    communication.showTryAgain(userName);
+  }
 };
 
 /**
@@ -51,13 +57,14 @@ const showResultGame = (userName) => {
  * and showing the final result based on the player's performance.
  *
  * @param {string} gameDescription - Description of the game to be displayed to the user.
- * @param {Function} generateRoundData - A function to generate data for each round, including the question and correct answer.
+ * @param {Function} generateRoundData - A function to generate data for each round,
+ * including the question and correct answer.
  */
 
 const game = (gameDescription, generateRoundData) => {
   showWelcomeGameMessage(gameDescription);
   startRound(generateRoundData, 1);
-  showResultGame(userName);
+  showResultGame();
 };
 
 export default game;

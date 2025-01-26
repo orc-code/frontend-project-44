@@ -3,16 +3,6 @@ import getRandomNumber from '../utility/getRandomNumber.js';
 
 const GAME_DESCRIPTIONS = 'Find the greatest common divisor of given numbers.';
 
-const generateRoundData = () => {
-  const question = generateQuestion();
-  const correctAnswer = generateAnswer(question);
-
-  return {
-    question: normalizeQuestion(question),
-    correctAnswer: correctAnswer.toString(),
-  };
-};
-
 const generateQuestion = () => {
   const num1 = getRandomNumber(1, 100);
   const num2 = getRandomNumber(1, 100);
@@ -39,6 +29,16 @@ const generateAnswer = ({ num1, num2 }) => {
   };
 
   return iter(num1, num2);
+};
+
+const generateRoundData = () => {
+  const question = generateQuestion();
+  const correctAnswer = generateAnswer(question);
+
+  return {
+    question: normalizeQuestion(question),
+    correctAnswer: correctAnswer.toString(),
+  };
 };
 
 const brainGcd = () => game(GAME_DESCRIPTIONS, generateRoundData);
