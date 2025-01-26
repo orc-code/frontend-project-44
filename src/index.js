@@ -6,12 +6,6 @@ const GAME_TITLE = 'the Brain Games';
 let userName;
 let isWin = false;
 
-const game = (gameDescription, generateRoundData) => {
-  showWelcomeGameMessage(gameDescription);
-  startRound(generateRoundData, 1);
-  showResultGame(userName);
-};
-
 const showWelcomeGameMessage = (gameDescription) => {
   communication.showMessage(`Welcome to ${GAME_TITLE}!`);
   userName = communication.getUserName();
@@ -20,9 +14,7 @@ const showWelcomeGameMessage = (gameDescription) => {
 };
 
 const startRound = (generateRoundData, roundCount) => {
-  const { getQuestion, getCorrectAnswer } = generateRoundData();
-  const question = getQuestion();
-  const correctAnswer = getCorrectAnswer(question);
+  const { question, correctAnswer } = generateRoundData();
 
   communication.showQuestion(question);
   const userAnswer = communication.getUserAnswer();
@@ -50,6 +42,20 @@ const processWrongAnswer = (answer, correctAnswer) => {
 
 const showResultGame = (userName) => {
   isWin ? communication.showCongratulations(userName) : communication.showTryAgain(userName);
+};
+
+/**
+ * Starts the game by displaying a welcome message, initiating game rounds,
+ * and showing the final result based on the player's performance.
+ *
+ * @param {string} gameDescription - Description of the game to be displayed to the user.
+ * @param {Function} generateRoundData - A function to generate data for each round, including the question and correct answer.
+ */
+
+const game = (gameDescription, generateRoundData) => {
+  showWelcomeGameMessage(gameDescription);
+  startRound(generateRoundData, 1);
+  showResultGame(userName);
 };
 
 export default game;
