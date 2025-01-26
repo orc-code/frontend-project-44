@@ -21,14 +21,15 @@ const isPrime = (num) => {
   if (num === 2 || num === 3) {
     return true;
   }
+  const limit = Math.sqrt(num);
 
-  if (num % 2 === 0 || num % 3 === 0) {
-    return false;
+  for (let i = 2; i <= limit; i += 1) {
+    if (num % i === 0) {
+      return false;
+    }
   }
 
-  const limit = Math.sqrt(num);
-  const iter = (i) => i < limit && (num % i === 0 || iter(i + 1));
-  return iter(2);
+  return true;
 };
 
 const brainPrime = () => game(GAME_DESCRIPTIONS, generateRoundData);
