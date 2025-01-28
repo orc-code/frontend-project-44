@@ -54,10 +54,10 @@ function showResultGame() {
  * including the question and correct answer.
  */
 
-const game = (gameDescription, generateRoundData) => {
+const runGame = (gameDescription, generateRoundData) => {
   showWelcomeGameMessage(gameDescription);
   startRound(generateRoundData, 1);
   showResultGame();
 };
 
-export default game;
+export default runGame;

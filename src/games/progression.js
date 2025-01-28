@@ -1,4 +1,4 @@
-import game from '../index.js';
+import runGame from '../index.js';
 import getRandomNumber from '../utility/getRandomNumber.js';
 
 const GAME_DESCRIPTIONS = 'What number is missing in the progression?';
@@ -38,6 +38,6 @@ const generateRoundData = () => {
   };
 };
 
-const brainProgression = () => game(GAME_DESCRIPTIONS, generateRoundData);
+const runProgressionGame = () => runGame(GAME_DESCRIPTIONS, generateRoundData);
 
-export default brainProgression;
+export default runProgressionGame;
