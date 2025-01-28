@@ -4,7 +4,7 @@ import getRandomNumber from '../utility/getRandomNumber.js';
 const GAME_DESCRIPTION = 'What is the result of the expression?';
 const operators = ['+', '-', '*'];
 
-const generateAnswer = ({ operand1, operand2, operator }) => {
+const generateAnswer = (operand1, operator, operand2) => {
   switch (operator) {
     case '+':
       return operand1 + operand2;
@@ -23,7 +23,7 @@ const generateRoundData = () => {
   const operator = operators[getRandomNumber(0, operators.length - 1)];
 
   const question = `${operand1} ${operator} ${operand2}`;
-  const correctAnswer = generateAnswer(question).toString();
+  const correctAnswer = generateAnswer(operand1, operator, operand2).toString();
 
   return {
     question,
