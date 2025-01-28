@@ -45,15 +45,6 @@ function showResultGame() {
   }
 }
 
-/**
- * Starts the game by displaying a welcome message, initiating game rounds,
- * and showing the final result based on the player's performance.
- *
- * @param {string} gameDescription - Description of the game to be displayed to the user.
- * @param {Function} generateRoundData - A function to generate data for each round,
- * including the question and correct answer.
- */
-
 const runGame = (gameDescription, generateRoundData) => {
   showWelcomeGameMessage(gameDescription);
   startRound(generateRoundData, 1);
