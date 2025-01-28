@@ -3,52 +3,28 @@ import * as communication from './utility/communication.js';
 const MAX_ROUND_COUNT = 3;
 const GAME_TITLE = 'the Brain Games';
 
-let userName;
-let isWin = false;
-
-const isCorrectAnswer = (userAnswer, correctAnswer) => userAnswer === correctAnswer;
-
-function showWelcomeGameMessage(gameDescription) {
+const runGame = (gameDescription, generateRoundData) => {
   communication.showMessage(`Welcome to ${GAME_TITLE}!`);
-  userName = communication.getUserName();
+  const userName = communication.getUserName();
   communication.showHello(userName);
   communication.showMessage(gameDescription);
-}
 
-function startRound(generateRoundData, roundCount) {
-  const { question, correctAnswer } = generateRoundData();
+  for (let i = 0; i < MAX_ROUND_COUNT; i += 1) {
+    const { question, correctAnswer } = generateRoundData();
 
-  communication.showQuestion(question);
-  const userAnswer = communication.getUserAnswer();
+    communication.showQuestion(question);
+    const userAnswer = communication.getUserAnswer();
 
-  if (!isCorrectAnswer(userAnswer, correctAnswer)) {
-    communication.showWrongAnswer(userAnswer, correctAnswer);
-    return;
+    if (userAnswer !== correctAnswer) {
+      communication.showWrongAnswer(userAnswer, correctAnswer);
+      communication.showTryAgain(userName);
+      return;
+    }
+
+    communication.showCorrectAnswer();
   }
 
-  communication.showCorrectAnswer();
-
-  if (roundCount < MAX_ROUND_COUNT) {
-    startRound(generateRoundData, roundCount + 1);
-  }
-
-  if (roundCount === MAX_ROUND_COUNT) {
-    isWin = true;
-  }
-}
-
-function showResultGame() {
-  if (isWin) {
-    communication.showCongratulations(userName);
-  } else {
-    communication.showTryAgain(userName);
-  }
-}
-
-const runGame = (gameDescription, generateRoundData) => {
-  showWelcomeGameMessage(gameDescription);
-  startRound(generateRoundData, 1);
-  showResultGame();
+  communication.showCongratulations(userName);
 };
 
 export default runGame;
