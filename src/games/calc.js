@@ -4,40 +4,30 @@ import getRandomNumber from '../utility/getRandomNumber.js';
 const GAME_DESCRIPTION = 'What is the result of the expression?';
 const operators = ['+', '-', '*'];
 
-const generateQuestion = () => {
-  const num1 = getRandomNumber(1, 100);
-  const num2 = getRandomNumber(1, 100);
-  const operator = operators[getRandomNumber(0, 2)];
-
-  return {
-    num1,
-    num2,
-    operator,
-  };
-};
-
-const normalizeQuestion = ({ num1, operator, num2 }) => `${num1} ${operator} ${num2}`;
-
-const generateAnswer = ({ num1, num2, operator }) => {
+const generateAnswer = ({ operand1, operand2, operator }) => {
   switch (operator) {
     case '+':
-      return num1 + num2;
+      return operand1 + operand2;
     case '-':
-      return num1 - num2;
+      return operand1 - operand2;
     case '*':
-      return num1 * num2;
+      return operand1 * operand2;
     default:
-      throw new Error('Unknown operator');
+      throw new Error(`Unknown operator: ${operator}`);
   }
 };
 
 const generateRoundData = () => {
-  const question = generateQuestion();
-  const correctAnswer = generateAnswer(question);
+  const operand1 = getRandomNumber(1, 100);
+  const operand2 = getRandomNumber(1, 100);
+  const operator = operators[getRandomNumber(0, operators.length - 1)];
+
+  const question = `${operand1} ${operator} ${operand2}`;
+  const correctAnswer = generateAnswer(question).toString();
 
   return {
-    question: normalizeQuestion(question),
-    correctAnswer: correctAnswer.toString(),
+    question,
+    correctAnswer,
   };
 };
 

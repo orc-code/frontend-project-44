@@ -3,41 +3,28 @@ import getRandomNumber from '../utility/getRandomNumber.js';
 
 const GAME_DESCRIPTIONS = 'Find the greatest common divisor of given numbers.';
 
-const generateQuestion = () => {
-  const num1 = getRandomNumber(1, 100);
-  const num2 = getRandomNumber(1, 100);
+const getGcd = (a, b) => {
+  if (a < b) {
+    return getGcd(b, a);
+  }
 
-  return {
-    num1,
-    num2,
-  };
-};
+  if (!b) {
+    return a;
+  }
 
-const normalizeQuestion = ({ num1, num2 }) => `${num1} ${num2}`;
-
-const generateAnswer = ({ num1, num2 }) => {
-  const iter = (a, b) => {
-    if (a < b) {
-      return iter(b, a);
-    }
-
-    if (!b) {
-      return a;
-    }
-
-    return iter(b, a % b);
-  };
-
-  return iter(num1, num2);
+  return getGcd(b, a % b);
 };
 
 const generateRoundData = () => {
-  const question = generateQuestion();
-  const correctAnswer = generateAnswer(question);
+  const number1 = getRandomNumber(1, 100);
+  const number2 = getRandomNumber(1, 100);
+
+  const question = `${number1} ${number2}`;
+  const correctAnswer = getGcd(number1, number2).toString();
 
   return {
-    question: normalizeQuestion(question),
-    correctAnswer: correctAnswer.toString(),
+    question,
+    correctAnswer,
   };
 };
 
